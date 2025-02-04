@@ -34,7 +34,6 @@ public class exoplanets : MonoBehaviour
     private bool[] spinningCcw = new bool[3];
 
     private bool starCcw;
-    private int batteryOffset;
     private int targetPlanet;
     private int targetDigit;
     private int startingTargetPlanet;
@@ -97,7 +96,7 @@ public class exoplanets : MonoBehaviour
         foreach (KMSelectable button in planetButtons)
             button.OnInteract += delegate () { PressPlanet(button); return false; };
         starButton.OnInteract += delegate () { PressStar(); return false; };
-        bomb.OnBombExploded += delegate { HandleDetonation(); };
+        bomb.OnBombExploded += delegate { OnDestroy(); };
     }
 
     private void Start()
@@ -501,7 +500,7 @@ public class exoplanets : MonoBehaviour
             planet.gameObject.SetActive(false);
     }
 
-    private void HandleDetonation()
+    private void OnDestroy()
     {
         StopAllCoroutines();
         if (ambianceRef != null && settings.playAmbiance)
